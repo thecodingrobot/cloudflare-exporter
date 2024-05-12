@@ -1,4 +1,4 @@
-FROM golang:alpine as builder
+FROM golang:1.22-alpine as builder
 
 WORKDIR /app
 
@@ -11,7 +11,7 @@ COPY go.sum go.sum
 RUN go get -d -v
 RUN CGO_ENABLED=0 GOOS=linux go build -o cloudflare_exporter .
 
-FROM alpine:3.18
+FROM alpine:3.19
 
 RUN apk update && apk add ca-certificates
 
