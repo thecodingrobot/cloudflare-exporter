@@ -269,13 +269,13 @@ func fetchFirewallRules(zoneId string) map[string]string {
 		firewallRulesMap[rule.ID] = rule.Description
 	}
 
-	listOfRulesets, err := api.ListZoneRulesets(ctx, zoneId)
+	listOfRulesets, err := api.ListRulesets(ctx, cloudflare.ZoneIdentifier(zoneId), cloudflare.ListRulesetsParams{})
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, rulesetDesc := range listOfRulesets {
 		if rulesetDesc.Phase == "http_request_firewall_managed" {
-			ruleset, err := api.GetZoneRuleset(ctx, zoneId, rulesetDesc.ID)
+			ruleset, err := api.GetRuleset(ctx, cloudflare.ZoneIdentifier(zoneId), rulesetDesc.ID)
 			if err != nil {
 				log.Fatal(err)
 			}
