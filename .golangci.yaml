@@ -1,6 +1,8 @@
 linters:
   enable:
-    - megacheck
+    - gosimple
+    - staticcheck
+    - unused
     - gofmt
     - govet
     - revive # replacement for golint
