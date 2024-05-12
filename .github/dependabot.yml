@@ -6,3 +6,7 @@ updates:
       interval: "weekly"
     reviewers:
       - "Shopify/infrasec"
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: weekly
