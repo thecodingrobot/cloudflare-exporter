@@ -536,7 +536,7 @@ func addFirewallGroups(z *zoneResp, name string, account string) {
 				"account": account,
 				"action":  g.Dimensions.Action,
 				"source":  g.Dimensions.Source,
-				"rule":    normalizeRuleName(rulesMap[g.Dimensions.RuleId]),
+				"rule":    normalizeRuleName(rulesMap[g.Dimensions.RuleID]),
 				"host":    g.Dimensions.ClientRequestHTTPHost,
 				"country": g.Dimensions.ClientCountryName,
 			}).Add(float64(g.Count))

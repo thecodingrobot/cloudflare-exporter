@@ -143,7 +143,7 @@ type zoneResp struct {
 		Dimensions struct {
 			Action                string `json:"action"`
 			Source                string `json:"source"`
-			RuleId                string `json:"ruleId"`
+			RuleID                string `json:"ruleId"`
 			ClientCountryName     string `json:"clientCountryName"`
 			ClientRequestHTTPHost string `json:"clientRequestHTTPHost"`
 		} `json:"dimensions"`
@@ -244,7 +244,7 @@ func fetchZones() []cloudflare.Zone {
 	return z
 }
 
-func fetchFirewallRules(zoneId string) map[string]string {
+func fetchFirewallRules(zoneID string) map[string]string {
 	var api *cloudflare.API
 	var err error
 	if len(cfgCfAPIToken) > 0 {
@@ -258,7 +258,7 @@ func fetchFirewallRules(zoneId string) map[string]string {
 
 	ctx := context.Background()
 	listOfRules, _, err := api.FirewallRules(ctx,
-		cloudflare.ZoneIdentifier(zoneId),
+		cloudflare.ZoneIdentifier(zoneID),
 		cloudflare.FirewallRuleListParams{})
 	if err != nil {
 		log.Fatal(err)
@@ -269,13 +269,13 @@ func fetchFirewallRules(zoneId string) map[string]string {
 		firewallRulesMap[rule.ID] = rule.Description
 	}
 
-	listOfRulesets, err := api.ListRulesets(ctx, cloudflare.ZoneIdentifier(zoneId), cloudflare.ListRulesetsParams{})
+	listOfRulesets, err := api.ListRulesets(ctx, cloudflare.ZoneIdentifier(zoneID), cloudflare.ListRulesetsParams{})
 	if err != nil {
 		log.Fatal(err)
 	}
 	for _, rulesetDesc := range listOfRulesets {
 		if rulesetDesc.Phase == "http_request_firewall_managed" {
-			ruleset, err := api.GetRuleset(ctx, cloudflare.ZoneIdentifier(zoneId), rulesetDesc.ID)
+			ruleset, err := api.GetRuleset(ctx, cloudflare.ZoneIdentifier(zoneID), rulesetDesc.ID)
 			if err != nil {
 				log.Fatal(err)
 			}
